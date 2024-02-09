@@ -1,0 +1,60 @@
+create database db;
+use shoppingcart;
+drop database db;
+
+CREATE SCHEMA shoppingcart;
+
+CREATE TABLE shoppingcart.USERS (
+	USER_ID INT AUTO_INCREMENT NOT NULL,
+    NAME VARCHAR(50) NOT NULL,
+    LAST_NAME VARCHAR(50),
+    BIO VARCHAR(200),
+    EMAIL VARCHAR(200) NOT NULL,
+    AREA_OF_INTEREST VARCHAR(300),
+    PRIMARY KEY (USER_ID)
+);
+
+CREATE TABLE shoppingcart.PRODUCTS(
+	PRODUCT_ID  INT AUTO_INCREMENT NOT NULL,
+    NAME VARCHAR (100) NOT NULL,
+    PRICE NUMERIC(10) NOT NULL,
+    IMAGE LONGBLOB,
+    DESCRIPTION VARCHAR(200),
+    TOTAL_PRODUCTS_INVENTORY NUMERIC(10) NOT NULL,
+    STATUS BOOLEAN NOT NULL,
+    PRIMARY KEY (PRODUCT_ID)
+);
+
+CREATE TABLE shoppingcart.ORDER_HISTORY(
+	ORDER_ID  INT AUTO_INCREMENT NOT NULL,
+    ORDER_DATE DATE NOT NULL,
+    USER_ID INT,
+    PRODUCT_ID INT,
+    PRIMARY KEY (ORDER_ID),
+    FOREIGN KEY (USER_ID) REFERENCES shoppingcart.USERS(USER_ID),
+	FOREIGN KEY (PRODUCT_ID) REFERENCES shoppingcart.PRODUCTS(PRODUCT_ID)
+);
+
+
+CREATE TABLE shoppingcart.USERS_PRODUCTS(
+USER_ID int,
+PRODUCT_ID int,
+FOREIGN KEY(USER_ID) 
+REFERENCES shoppingcart.USERS(USER_ID),
+FOREIGN KEY(PRODUCT_ID) 
+REFERENCES shoppingcart.PRODUCTS(PRODUCT_ID)
+);
+
+
+select * from shoppingcart.USERS;
+select * from shoppingcart.PRODUCTS;
+select * from shoppingcart.ORDER_HISTORY;
+select * from shoppingcart.USERS_PRODUCTS;
+
+
+
+drop table shoppingcart.USERS;
+drop table shoppingcart.PRODUCTS;
+drop table shoppingcart.ORDER_HISTORY;
+drop table shoppingcart.USERS_PRODUCTS;
+
